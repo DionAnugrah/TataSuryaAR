@@ -31,6 +31,11 @@ public class TataSuryaController : MonoBehaviour
     public AudioClip benarClip;
     public AudioClip salahClip;
 
+    [Header("Musik Latar")]
+    [Tooltip("Seret file Musik_Latar_Luar_Angkasa ke sini")]
+    public AudioClip musikLatar;
+    [Range(0f, 1f)] public float volumeMusik = 0.35f;
+
     [Header("Animasi")]
     public float kecepatanGlobal = 1f;
     public float durasiMuncul = 0.8f;
@@ -98,9 +103,17 @@ public class TataSuryaController : MonoBehaviour
             OrbitJalan = true;
             garisTarget = 1f;
         }
+
+        // Kartu terdeteksi: bunyi "pop" + musik latar mulai pelan-pelan
+        SuaraManager.Pop();
+        if (musikLatar != null) SuaraManager.MainkanMusik(musikLatar, volumeMusik);
     }
 
-    void OnDestroy() { if (Instance == this) Instance = null; }
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+        SuaraManager.HentikanMusik();
+    }
 
     public static float EaseOutBack(float x)
     {

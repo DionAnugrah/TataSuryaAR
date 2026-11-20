@@ -1,6 +1,7 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
-// Suara narasi (Text-to-Speech HP Android) + efek klik/benar/salah dibuat lewat kode.
+// Suara narasi (Text-to-Speech Android & iPhone) + efek klik/benar/salah + musik latar.
 // TIDAK perlu dipasang manual: otomatis dibuat saat aplikasi mulai.
 public class SuaraManager : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class SuaraManager : MonoBehaviour
     [Range(0.5f, 1.5f)] public float kecepatanBicara = 0.95f;
     [Range(0.5f, 2f)]   public float nadaBicara = 1.05f;
     [Range(0f, 1f)]     public float volumeEfek = 0.7f;
+    [Range(0f, 1f)]     public float musikSaatBicara = 0.35f;   // musik mengecil jadi 35% saat ada narasi
 
-    AudioSource sfx;
+    AudioSource sfx, musik;
     AudioClip cKlik, cPop, cBenar, cSalah, cSelesai;
     float minSampai, maksSampai, estimasiSampai;
+    float targetMusik, volumeMusikMax = 0.35f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void AutoBuat()
@@ -61,6 +64,7 @@ public class SuaraManager : MonoBehaviour
 
     void Main(AudioClip c) { if (c != null && sfx != null) sfx.PlayOneShot(c, volumeEfek); }
 
+    // ===== API statis (panggil dari mana saja) =====
     public static void Klik()    { if (Instance) Instance.Main(Instance.cKlik); }
     public static void Pop()     { if (Instance) Instance.Main(Instance.cPop); }
     public static void Benar()   { if (Instance) Instance.Main(Instance.cBenar); }
@@ -69,7 +73,37 @@ public class SuaraManager : MonoBehaviour
     public static void Ucapkan(string teks) { if (Instance) Instance.UcapkanI(teks); }
     public static void Berhenti() { if (Instance) Instance.BerhentiI(); }
     public static bool SedangBicara { get { return Instance && Instance.SedangBicaraI(); } }
+    public static void MainkanMusik(AudioClip clip, float volume) { if (Instance) Instance.MainkanMusikI(clip, volume); }
+    public static void HentikanMusik() { if (Instance) Instance.targetMusik = 0f; }
 
+    // ===== Musik latar (berulang, muncul pelan, mengecil saat ada narasi) =====
+    void MainkanMusikI(AudioClip clip, float vol)
+    {
+        if (clip == null) return;
+        if (musik == null)
+        {
+            musik = gameObject.AddComponent<AudioSource>();
+            musik.loop = true;
+            musik.playOnAwake = false;
+            musik.spatialBlend = 0f;
+            musik.volume = 0f;
+        }
+        volumeMusikMax = vol;
+        if (musik.clip != clip) { musik.clip = clip; musik.Play(); }
+        else if (!musik.isPlaying) musik.Play();
+        targetMusik = 1f;
+    }
+
+    void LateUpdate()
+    {
+        if (musik == null) return;
+        float redam = SedangBicaraI() ? musikSaatBicara : 1f;
+        float tujuan = targetMusik * volumeMusikMax * redam;
+        musik.volume = Mathf.MoveTowards(musik.volume, tujuan, Time.unscaledDeltaTime * 0.5f);
+        if (targetMusik <= 0f && musik.volume <= 0.001f && musik.isPlaying) musik.Pause();
+    }
+
+    // ===== Narasi (TTS) =====
     void UcapkanI(string teks)
     {
         if (string.IsNullOrEmpty(teks)) return;
@@ -79,6 +113,8 @@ public class SuaraManager : MonoBehaviour
         maksSampai = Time.time + perkiraan + 3f;
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (siap) BicaraTTS(teks); else antrean = teks;
+#elif UNITY_IOS && !UNITY_EDITOR
+        SuaraIOS_Ucapkan(teks, kecepatanBicara, nadaBicara);
 #else
         Debug.Log("[Narasi] " + teks);
 #endif
@@ -90,6 +126,8 @@ public class SuaraManager : MonoBehaviour
 #if UNITY_ANDROID && !UNITY_EDITOR
         antrean = null;
         if (siap && tts != null) { try { tts.Call<int>("stop"); } catch { } }
+#elif UNITY_IOS && !UNITY_EDITOR
+        SuaraIOS_Berhenti();
 #endif
     }
 
@@ -99,11 +137,19 @@ public class SuaraManager : MonoBehaviour
         if (Time.time > maksSampai) return false;
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (siap && tts != null) { try { return tts.Call<bool>("isSpeaking"); } catch { } }
+#elif UNITY_IOS && !UNITY_EDITOR
+        return SuaraIOS_SedangBicara();
 #endif
         return Time.time < estimasiSampai;
     }
 
     void OnApplicationPause(bool jeda) { if (jeda) BerhentiI(); }
+
+#if UNITY_IOS && !UNITY_EDITOR
+    [DllImport("__Internal")] static extern void SuaraIOS_Ucapkan(string teks, float kecepatan, float nada);
+    [DllImport("__Internal")] static extern void SuaraIOS_Berhenti();
+    [DllImport("__Internal")] [return: MarshalAs(UnmanagedType.I1)] static extern bool SuaraIOS_SedangBicara();
+#endif
 
 #if UNITY_ANDROID && !UNITY_EDITOR
     AndroidJavaObject tts;

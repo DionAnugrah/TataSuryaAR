@@ -75,11 +75,15 @@ MonoBehaviour:
   klikClip: {fileID: 0}
   benarClip: {fileID: 0}
   salahClip: {fileID: 0}
+  musikLatar: {fileID: 8300000, guid: 556be5023d138450aaba61868c6528ac, type: 3}
+  volumeMusik: 0.35
   kecepatanGlobal: 1
   durasiMuncul: 0.8
   tinggiMelayang: 0.004
   zoomMin: 0.3
   zoomMax: 3
+  orbitSaatMuncul: 1
+  rotasiSaatDiam: 0.25
   pembukaNarasi: Tata Surya terdiri dari Matahari sebagai pusatnya, dan delapan planet yang mengelilinginya. Ayo kita kenali satu per satu.
   penutupNarasi: Itulah delapan planet di Tata Surya kita. Coba tekan tombol Kuis untuk menguji ingatanmu!
 --- !u!82 &2091195051795928050
