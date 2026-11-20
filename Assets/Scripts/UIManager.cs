@@ -278,12 +278,20 @@ public class UIManager : MonoBehaviour
         else { if (benar) SuaraManager.Benar(); else SuaraManager.Salah(); }
         SuaraManager.Ucapkan(benar ? "Benar!" : "Kurang tepat. Jawabannya " + kunci);
 
-        kuisCo = StartCoroutine(Lanjut(benar ? 1.4f : 2.4f));
+        kuisCo = StartCoroutine(Lanjut(benar ? 1.2f : 1.8f));
     }
 
     IEnumerator Lanjut(float jeda)
     {
+        // tunggu minimal sesuai jeda
         yield return new WaitForSecondsRealtime(jeda);
+
+        // lalu tunggu sampai suara "Benar!" / "Kurang tepat. Jawabannya ..." selesai
+        float batas = Time.unscaledTime + 8f;
+        while (SuaraManager.SedangBicara && Time.unscaledTime < batas)
+            yield return null;
+
+        yield return new WaitForSecondsRealtime(0.4f);
         indeks++;
         if (indeks >= sesi.Count) SelesaiKuis();
         else TampilSoal();
