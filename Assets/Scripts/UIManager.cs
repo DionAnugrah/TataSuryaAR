@@ -52,6 +52,9 @@ public class UIManager : MonoBehaviour
         new Soal("Planet yang berputar seperti menggelinding?", new[] { "Uranus", "Neptunus", "Jupiter" }, 0),
         new Soal("Apa pusat dari Tata Surya?", new[] { "Bumi", "Matahari", "Jupiter" }, 1),
         new Soal("Planet dengan satelit paling banyak?", new[] { "Jupiter", "Mars", "Saturnus" }, 2),
+        new Soal("Matahari termasuk jenis benda langit apa?", new[] { "Planet", "Bintang", "Satelit" }, 1),
+        new Soal("Kira-kira berapa lama cahaya Matahari sampai ke Bumi?", new[] { "8 detik", "8 menit", "8 jam" }, 1),
+        new Soal("Diameter Matahari kira-kira berapa kali diameter Bumi?", new[] { "10 kali", "50 kali", "109 kali" }, 2),
     };
 
     readonly List<Soal> sesi = new List<Soal>();

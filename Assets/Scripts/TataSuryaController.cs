@@ -17,6 +17,8 @@ public class TataSuryaController : MonoBehaviour
     [Header("Objek")]
     public Planet[] planets;
     public Planet bumi;
+    [Tooltip("Kosong = dicari otomatis (objek bernama Matahari)")]
+    public Planet matahari;
     public Transform bulan;
     public float jarakBulan = 0.6f;
     public float kecepatanBulan = 120f;
@@ -73,6 +75,9 @@ public class TataSuryaController : MonoBehaviour
     {
         Instance = this;
         skalaAwal = transform.localScale;
+        if (matahari == null)
+            foreach (Planet p in GetComponentsInChildren<Planet>(true))
+                if (p.gameObject.name.Trim() == "Matahari") { matahari = p; break; }
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
         if (bulan != null)
         {
@@ -370,6 +375,15 @@ public class TataSuryaController : MonoBehaviour
     {
         Ucap(pembukaNarasi, null);
         yield return TungguBicara();
+
+        // Matahari dulu, baru planet-planet
+        if (matahari != null)
+        {
+            PilihInternal(matahari, false);
+            Ucap(matahari.TeksBicara(), matahari.narasi);
+            yield return TungguBicara();
+            yield return new WaitForSeconds(0.3f);
+        }
 
         foreach (Planet p in planets)
         {

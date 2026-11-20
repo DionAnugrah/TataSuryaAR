@@ -43,7 +43,7 @@ public class Planet : MonoBehaviour
 
     static readonly Dictionary<string, Data> DB = new Dictionary<string, Data>
     {
-        { "Matahari",  new Data("1.392.700 km", "-", "-", "Matahari adalah bintang di pusat Tata Surya. Cahayanya butuh sekitar 8 menit untuk sampai ke Bumi.", 0f, 8f) },
+        { "Matahari",  new Data("1.392.700 km (109 kali Bumi)", "-", "-", "Matahari adalah bintang di pusat Tata Surya, bola gas panas raksasa yang memancarkan cahaya dan panas. Suhu permukaannya sekitar 5.500 derajat Celsius, dan cahayanya butuh sekitar 8 menit untuk sampai ke Bumi.", 0f, 8f) },
         { "Merkurius", new Data("4.879 km", "57,9 juta km", "0", "Planet terkecil dan paling dekat dengan Matahari. Satu tahun di Merkurius hanya 88 hari.", 48f, 6f) },
         { "Venus",     new Data("12.104 km", "108,2 juta km", "0", "Planet terpanas, suhunya sekitar 465 derajat Celsius karena atmosfernya sangat tebal. Venus berputar berlawanan arah dengan planet lain.", 35f, -4f) },
         { "Bumi",      new Data("12.742 km", "149,6 juta km", "1 (Bulan)", "Satu-satunya planet yang diketahui memiliki kehidupan. Sekitar 71 persen permukaannya tertutup air.", 30f, 60f) },
@@ -82,7 +82,10 @@ public class Planet : MonoBehaviour
         if (string.IsNullOrEmpty(ciriKhas)) ciriKhas = x.c;
         kecepatanOrbit = x.orbit;
         kecepatanRotasi = x.rotasi;
+        if (key == "Matahari") skalaDipilih = 1.15f;   // Matahari sudah besar, membesar sedikit saja
     }
+
+    public bool IsMatahari { get { return namaPlanet == "Matahari" || gameObject.name.Trim() == "Matahari"; } }
 
     void Update()
     {
@@ -154,6 +157,13 @@ public class Planet : MonoBehaviour
 
     public string Info()
     {
+        if (IsMatahari)
+            return "<size=125%><b>" + namaPlanet + "</b></size>\n" +
+                   "Jenis: Bintang (pusat Tata Surya)\n" +
+                   "Diameter: " + diameter + "\n" +
+                   "Suhu permukaan: sekitar 5.500 \u00B0C\n" +
+                   "Umur: sekitar 4,6 miliar tahun\n\n" +
+                   "Matahari menyimpan 99,8% massa Tata Surya. Cahayanya sampai ke Bumi dalam sekitar 8 menit.";
         return "<size=125%><b>" + namaPlanet + "</b></size>\n" +
                "Diameter: " + diameter + "\n" +
                "Jarak dari Matahari: " + jarakDariMatahari + "\n" +
