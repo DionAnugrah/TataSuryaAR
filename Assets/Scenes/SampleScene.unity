@@ -532,7 +532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &436358033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,6 +2995,7 @@ MonoBehaviour:
   teksFakta: {fileID: 1832264711}
   faktaBumi: Bumi satu-satunya planet yang diketahui memiliki kehidupan. Sekitar 71% permukaannya tertutup air.
   teksTombolOrbit: {fileID: 493941805}
+  teksTombolNarasi: {fileID: 0}
   panelKuis: {fileID: 818272411}
   teksSoal: {fileID: 150540928}
   teksPilihan:
@@ -3002,6 +3003,10 @@ MonoBehaviour:
   - {fileID: 556642864}
   - {fileID: 981124342}
   teksHasil: {fileID: 622493595}
+  jumlahSoal: 5
+  bacakanSoal: 1
+  warnaBenar: {r: 0.3, g: 0.85, b: 0.4, a: 1}
+  warnaSalah: {r: 0.95, g: 0.35, b: 0.35, a: 1}
 --- !u!1 &1832264709
 GameObject:
   m_ObjectHideFlags: 0

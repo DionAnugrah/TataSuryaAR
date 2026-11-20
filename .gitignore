@@ -136,3 +136,12 @@ crashlytics-build.properties
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+.idea/
+.vscode/
+
+.idea/
+.vscode/
+
+.idea/
+.vscode/

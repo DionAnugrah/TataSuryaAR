@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7037392982649569682}
   - component: {fileID: 1535559845497710568}
   - component: {fileID: 2091195051795928050}
+  - component: {fileID: 2368361064133145158}
   m_Layer: 0
   m_Name: TataSuryaRoot
   m_TagString: Untagged
@@ -74,6 +75,13 @@ MonoBehaviour:
   klikClip: {fileID: 0}
   benarClip: {fileID: 0}
   salahClip: {fileID: 0}
+  kecepatanGlobal: 1
+  durasiMuncul: 0.8
+  tinggiMelayang: 0.004
+  zoomMin: 0.3
+  zoomMax: 3
+  pembukaNarasi: Tata Surya terdiri dari Matahari sebagai pusatnya, dan delapan planet yang mengelilinginya. Ayo kita kenali satu per satu.
+  penutupNarasi: Itulah delapan planet di Tata Surya kita. Coba tekan tombol Kuis untuk menguji ingatanmu!
 --- !u!82 &2091195051795928050
 AudioSource:
   m_ObjectHideFlags: 0
@@ -171,6 +179,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2368361064133145158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106935908979467358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8e3b1fc81e2433093994a873bd02c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EfekLuarAngkasa
+  shaderAtmosfer: {fileID: 4800000, guid: bf641c4b0f74847b8bf1f32493402018, type: 3}
+  atmosfer: 0
+  tebalAtmosfer: 1.13
+  glowDipilih: 1.2
+  matahari: {fileID: 0}
+  warnaKorona: {r: 1, g: 0.6, b: 0.2, a: 1}
+  sabukAsteroid: 1
+  jumlahAsteroid: 400
+  materialAsteroid: {fileID: 0}
+  kecepatanSabuk: 4
+  bintang: 1
+  jumlahBintang: 160
 --- !u!1 &307513668046845066
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,14 +328,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &1802453789056209570
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,14 +465,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &1974166315923372945
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,14 +602,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &3078023244339069922
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,14 +829,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &3898949689270514419
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,14 +966,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &4495456442933726738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,14 +1217,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &5795774556497164896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,14 +1355,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &6306266435520657688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,14 +1492,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
 --- !u!1 &6561994890037901132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,11 +1629,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb4308cb8496029cadc523186e10995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
+  isiOtomatis: 1
   namaPlanet: 
   diameter: 
   jarakDariMatahari: 
   jumlahSatelit: 
   ciriKhas: 
+  teksNarasi: 
   narasi: {fileID: 0}
   kecepatanOrbit: 20
   kecepatanRotasi: 30
+  skalaDipilih: 1.4
+  warnaGlow: {r: 1, g: 0.9, b: 0.6, a: 1}
